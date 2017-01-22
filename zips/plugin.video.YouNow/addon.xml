@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.YouNow" name="YouNow"
+	version="1.0.2" provider-name="xbman">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">[COLOR limegreen][B]YouNow[/B][/COLOR] - Watch Broadcasters Live</summary>
+		<description lang="en">Watch Broadcasters Live from YouNow.com
+[COLOR yellowgreen][B]They can be funny, They can be crazy,[/B][/COLOR]
+[COLOR olive][B]and some can be just plain lazy. :D[/B][/COLOR]
+[B]Enjoy all of their moments with YouNow.[/B]
+[COLOR slategray]Chatting is available through your pc, phone, or tablet.[/COLOR]
+[COLOR slategray]Start your very own broadcast.. at younow.com[/COLOR]</description>
+        <disclaimer lang="en">The author does not have any affiliation with the content provider or with the broadcasters content. Enjoy! :-)</disclaimer>
+		<platform>all</platform>
+		<language>en</language>
+		<email></email>
+        <forum></forum>
+	</extension>
+</addon>

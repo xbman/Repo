@@ -1,0 +1,11 @@
+[B]YouNow 1.0.2[/B] (01-22-2017)
+- Added more pages to trending users. 
+
+[B]YouNow 1.0.1[/B] (01-21-2017)
+- Menu added. Next Page added to Trending users. 
+- Trending Tags added. Clear images added.
+- Bug fixes... 
+
+
+[Release] YouNow 1.0.0
+- Top 50 trending users only. This is a work in progress.
