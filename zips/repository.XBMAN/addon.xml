@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.XBMAN" name="XBMAN's Addons Repository" version="1.0" provider-name="xbman">
+<addon id="repository.XBMAN" name="XBMAN's Addons Repository" version="1.1" provider-name="xbman">
 	<extension point="xbmc.addon.repository" name="XBMAN's Addons Repository">
 		<info compressed="false">http://github.com/xbman/Repo/raw/master/addons.xml</info>
 		<checksum>http://github.com/xbman/Repo/raw/master/addons.xml.md5</checksum>
 		<datadir zip="true">http://github.com/xbman/Repo/raw/master/zips</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>XBMAN's Addons Repo</summary>
-		<description>[B][COLOR slategray]Download and install addons from XBMAN.[/COLOR][/B]
+		<summary>XBMAN's Addons Repository</summary>
+		<description>[COLOR slategray]Download and install addons from XBMAN.[/COLOR]
 
-[B]* Current Listed Addons.[/B]
+* Current Available Addons:
 
-[B]1: [COLOR limegreen]YouNow[/COLOR][/B] -Watch Broadcasters Live.
+1: [COLOR limegreen]YouNow[/COLOR] -Watch Broadcasters Live.
 
 [COLOR olive]* For Support please visit: tvaddons.ag[/COLOR]</description>
 		<platform>all</platform>
