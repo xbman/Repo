@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="plugin.video.YouNow" name="YouNow"
-	version="1.0.2" provider-name="xbman">
+	version="1.0.3" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 	</requires>

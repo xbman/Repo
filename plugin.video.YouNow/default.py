@@ -1,8 +1,29 @@
 import util, urllib2 , os , xbmcaddon , urllib , xbmcgui , xbmcplugin , sqlite3
 
-younow = 'https://api.younow.com/php/api/younow/trendingUsers/locale=en/numberOfRecords=50/startFrom='
-younowtags = 'https://api.younow.com/php/api/younow/queue/locale=en/numberOfRecords=50/startFrom='  # /tags=sumtag
+
 mysettings = xbmcaddon.Addon(id = 'plugin.video.YouNow')
+getSetting = xbmcaddon.Addon().getSetting
+langmode = int(mysettings.getSetting('lang_type'))
+if langmode == 0:
+    TheLang = 'en'
+elif langmode == 1:
+    TheLang = 'es'
+elif langmode == 2:
+    TheLang = 'me'
+elif langmode == 3:
+    TheLang = 'de'
+elif langmode == 4:
+    TheLang = 'fr'
+elif langmode == 5:
+    TheLang = 'pt'
+elif langmode == 6:
+    TheLang = 'tr'
+elif langmode == 7:
+    TheLang = 'ww'
+younow = 'https://api.younow.com/php/api/younow/trendingUsers/locale=' + TheLang + '/numberOfRecords=50/startFrom='
+#younow = 'https://api.younow.com/php/api/younow/trendingUsers/locale=en/numberOfRecords=50/startFrom='
+younowtags = 'https://api.younow.com/php/api/younow/queue/locale=en/numberOfRecords=50/startFrom='  # /tags=sumtag
+
 profile = mysettings.getAddonInfo('profile')
 home = mysettings.getAddonInfo('path')
 fanart = xbmc.translatePath(os.path.join(home, 'fanart.jpg'))
@@ -11,6 +32,12 @@ nexticon = xbmc.translatePath(os.path.join(home, 'next.png'))
 refreshicon = xbmc.translatePath(os.path.join(home, 'clear.png'))
 logos = xbmc.translatePath(os.path.join(home, 'icon.png')) # subfolder for logos
 homemenu = xbmc.translatePath(os.path.join(home, 'resources', 'playlists'))
+
+enable_clear_images = mysettings.getSetting('enable_clear_images')
+enable_trending_users = mysettings.getSetting('enable_trending_users')
+enable_trending_tags = mysettings.getSetting('enable_trending_tags')
+enable_settings = mysettings.getSetting('enable_settings')
+
 ClearImages = 'ClearImages'
 Cleared = 'Cleared'
 PageOne = 'PageOne'
@@ -73,7 +100,9 @@ art1 = 'art1'
 TagSearch = 'TagSearch'
 UserSearch = 'UserSearch'
 Results = 'Results'
+Settings = 'Settings'
 
+xbmcplugin.setContent(int(sys.argv[1]), 'movies')
 
 def get_params():
 	param = []
@@ -119,7 +148,8 @@ def add_dir2(name, url, mode, iconimage, fanart):
     return ok
 
 def Cat():
-    #add_dir2('[COLOR red][B]Clear YouNow Images[/B][/COLOR]', ClearImages, 2, refreshicon, fanart)
+    if mysettings.getSetting("auto_clear") == "true":
+        clean_database(False)
     add_dir('Trending Tags [COLOR yellow][B] Guys[/B][/COLOR]', Guys1, 2, icon, fanart)
     add_dir('Trending Tags [COLOR yellow][B] Girls[/B][/COLOR]', Girls1, 2, icon, fanart)
     add_dir('Trending Tags [COLOR yellow][B] Bored[/B][/COLOR]', Bored1, 2, icon, fanart)
@@ -144,17 +174,24 @@ def Cat():
     #xbmc.executebuiltin("Container.SetViewMode(50)")
 
 def main():
-    add_dir2('[COLOR red][B]Clear YouNow Images[/B][/COLOR]', ClearImages, 2, refreshicon, fanart)
-    add_dir('[B]Trending[B] [COLOR yellow][B] Users[/B][/COLOR]', PageOne, 2, icon, fanart)
-    add_dir('[B]Trending[B] [COLOR yellow][B] Tags[/B][/COLOR]', Categories, 2, icon, fanart)
+    if getSetting("enable_clear_images") == 'true':
+        add_dir2('[COLOR red][B]Clear Younow Images[/B][/COLOR]', ClearImages, 2, refreshicon, fanart)
+    if getSetting("enable_trending_users") == 'true':
+        add_dir('[B]Trending[B] [COLOR yellow][B] Users[/B][/COLOR]', PageOne, 2, icon, fanart)
+    if getSetting("enable_trending_tags") == 'true':
+        add_dir('[B]Trending[B] [COLOR yellow][B] Tags[/B][/COLOR]', Categories, 2, icon, fanart)
+    if getSetting("enable_settings") == 'true':
+        add_dir2('[COLOR slategray]Settings[/COLOR]', Settings, 3, icon, fanart)
 
 def start(url,mode):
     total = 49
     #print total
     if 'PageOne' in url:
+        if mysettings.getSetting("auto_clear") == "true":
+            clean_database(False)
         TheUrl = younow + '0'
         buildMenu(TheUrl,url,mode)
-        if total == 49:
+        if total >= 49:
             add_dir('P1 [COLOR yellow] [B]Next Page[/B][/COLOR]', Page2, 2, nexticon, fanart)
     elif 'Page2' in url:
         TheUrl = younow + '50'
@@ -430,6 +467,9 @@ def buildMenu(TheUrl,url,mode):
     else:
         util.showError(ADDON_ID, 'Could not open URL %s to create menu' % (url))
 
+def settings():
+    xbmcaddon.Addon().openSettings()
+
 def test():
     params = get_params()
     url = None
@@ -458,6 +498,8 @@ def test():
         search()
     elif mode == 2:
         start(url,mode)
+    elif mode == 3:
+        settings()
 
 
 parameters = util.parseParameters()

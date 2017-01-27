@@ -1,0 +1,14 @@
+<settings>
+	<category label="General">
+		<setting type="lsep" label="Enable or Disable Sections."/>
+		<setting id="enable_clear_images" type="bool" label="Clear Younow Images:" default="true" />
+		<setting id="enable_trending_users" type="bool" label="Trending Users:" default="true" />
+		<setting id="enable_trending_tags" type="bool" label="Trending Tags:" default="true" />
+		<setting id="enable_settings" type="bool" label="Show Settings:" default="true" />
+		<setting type="lsep" label="Auto-Clear"/>
+        <setting id="auto_clear" type="bool" label="Auto-Clear Younow Images:" default="false" />
+		<setting type="lsep" label="Trending User Language:"/>
+        <setting id="lang_type" type="enum" label="30100" lvalues="30101|30102|30103|30104|30105|30106|30107|30108" default="0" />
+
+	</category>
+</settings>
