@@ -1,29 +1,11 @@
 import util, urllib2 , os , xbmcaddon , urllib , xbmcgui , xbmcplugin , sqlite3
+import requests , json
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
-
-mysettings = xbmcaddon.Addon(id = 'plugin.video.YouNow')
+mysettings = xbmcaddon.Addon(id = 'plugin.video.LiveMe')
 getSetting = xbmcaddon.Addon().getSetting
-langmode = int(mysettings.getSetting('lang_type'))
-if langmode == 0:
-    TheLang = 'en'
-elif langmode == 1:
-    TheLang = 'es'
-elif langmode == 2:
-    TheLang = 'me'
-elif langmode == 3:
-    TheLang = 'de'
-elif langmode == 4:
-    TheLang = 'fr'
-elif langmode == 5:
-    TheLang = 'pt'
-elif langmode == 6:
-    TheLang = 'tr'
-elif langmode == 7:
-    TheLang = 'ww'
-younow = 'https://api.younow.com/php/api/younow/trendingUsers/locale=' + TheLang + '/numberOfRecords=50/startFrom='
-younowtags = 'https://api.younow.com/php/api/younow/queue/locale=' + TheLang + '/numberOfRecords=50/startFrom='  # /tag=sumtag
-#younowuser = 'https://api.younow.com/php/api/broadcast/info/curId=0/user='
-youtags = 'https://api.younow.com/php/api/younow/popularTags/locale=' + TheLang
 
 profile = mysettings.getAddonInfo('profile')
 home = mysettings.getAddonInfo('path')
@@ -50,6 +32,7 @@ Tagsz = 'Tagsz'
 Categories = 'Categories'
 Settings = 'Settings'
 #xbmcplugin.setContent(int(sys.argv[1]), 'movies')
+
 
 def searchUser(url,mode,top,pn,tag,v):
     try:
@@ -82,6 +65,12 @@ def setView(content, viewType):
     xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_GENRE )
     #xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_MPAA_RATING )
 
+def make_unicode(input):
+    if type(input) != unicode:
+        input =  input.decode('utf-8')
+        return input
+    else:
+        return input
 
 def get_params():
 	param = []
@@ -103,16 +92,12 @@ def get_params():
 
 def playVideo(params):
         videoLink = params['video']
+        code = params['code']
+        addd = params['addd']
         url = params['Page']
         mode = params['Type']
-        top = params['top']
         pn = params['pn']
-        tag = params['tag']
-        viewers = params['v']
-        tg = params['tg']
-        likes = params['likes']
-        fans = params['fans']
-        util.playMedia(params['title'], viewers, tg, likes, fans, params['image'], videoLink, 'Video')
+        util.playMedia(params['title'], params['image'], params['code'], params['addd'], videoLink, 'Video')
 
 def add_dir(name, url, top, pn, tag, v, mode, iconimage, fanart):
     u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&top=" + str(top) + "&pn=" + str(pn) + "&tag=" + str(tag) + "&v=" + str(v) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(name) + "&iconimage=" + urllib.quote_plus(iconimage)
@@ -136,11 +121,13 @@ def add_dir2(name, url, mode, iconimage, fanart):
 
 def main():
     if getSetting("enable_clear_images") == 'true':
-        add_dir2('[COLOR indianred][B]Clear Younow Images[/B][/COLOR]', ClearImages, 2, refreshicon, fanart)
-    if getSetting("enable_trending_users") == 'true':
-        add_dir('[COLOR seagreen][B]Trending[B][/COLOR] [COLOR yellowgreen][B] Users[/B][/COLOR]', PageOne, 0, 1, 'None', 0, 2, icon, fanart)
-    if getSetting("enable_trending_tags") == 'true':
-        add_dir('[COLOR seagreen][B]Trending[B][/COLOR] [COLOR yellowgreen][B] Tags[/B][/COLOR]', Categories, 0, 1, 'None', 0, 2, icon, fanart)
+        add_dir2('[COLOR indianred]Clear LiveMe Images[/COLOR]', ClearImages, 2, refreshicon, fanart)
+
+    #if getSetting("enable_liveme_broadcasters") == 'true':
+    add_dir('[COLOR mediumorchid][B]LiveMe[B][/COLOR] [COLOR mediumpurple][B] Broadcasters[/B][/COLOR]', PageOne, 0, 1, 'None', 0, 2, icon, fanart)
+
+    #if getSetting("enable_trending_tags") == 'true':
+    #    add_dir('[COLOR seagreen][B]Trending[B][/COLOR] [COLOR yellowgreen][B] Tags[/B][/COLOR]', Categories, 0, 1, 'None', 0, 2, icon, fanart)
     if getSetting("enable_settings") == 'true':
         add_dir2('[COLOR slategray]Settings[/COLOR]', Settings, 3, icon, fanart)
     setView('movies', 'menu_view')
@@ -149,12 +136,13 @@ def start(url,mode,top,pn,tag,v):
     if 'PageOne' in url:
         if mysettings.getSetting("auto_clear") == "true":
             clean_database(False)
-        TheUrl = younow + str(top)
+        #TheUrl = younow + str(top)
+        TheUrl = 'http://live.ksmobile.net/live/newmaininfo?page_size=100&page_index=1&countryCode=US'
         buildMenu(TheUrl,url,mode,top,pn,tag,v)
     elif 'NextPage' in url:
         params = get_params()
-        top = params['top']
-        TheUrl = younow + top
+        pn = params['pn']
+        TheUrl = 'http://live.ksmobile.net/live/newmaininfo?page_size=100&page_index=' + pn + '&countryCode=US'
         buildMenu(TheUrl,url,mode,top,pn,tag,v)
     elif 'Categories' in url:
         if mysettings.getSetting("auto_clear") == "true":
@@ -178,14 +166,14 @@ def clean_database(showdialog=True):
     conn = sqlite3.connect(xbmc.translatePath("special://database/Textures13.db"))
     try:
         with conn:
-            list = conn.execute("SELECT id, cachedurl FROM texture WHERE url LIKE '%%%s%%';" % ".younow.com")
+            list = conn.execute("SELECT id, cachedurl FROM texture WHERE url LIKE '%%%s%%';" % ".cmcm.com")
             for row in list:
                 conn.execute("DELETE FROM sizes WHERE idtexture LIKE '%s';" % row[0])
                 try: os.remove(xbmc.translatePath("special://thumbnails/" + row[1]))
                 except: pass
-            conn.execute("DELETE FROM texture WHERE url LIKE '%%%s%%';" % ".younow.com")
+            conn.execute("DELETE FROM texture WHERE url LIKE '%%%s%%';" % ".cmcm.com")
             if showdialog:
-                util.notifyClear('Finished','YouNow images cleared.')
+                util.notifyClear('Finished','LiveMe images cleared.')
     except:
         pass
 
@@ -210,52 +198,66 @@ def getTags(TheUrl):
         util.showError(ADDON_ID, 'Could not open URL %s to create menu' % (url))
     setView('movies', 'menu_view')
 
+
+def make_request(url):
+	try:
+		req = urllib2.Request(url)
+		req.add_header('User-Agent', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11')
+		#req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36')
+		response = urllib2.urlopen(req, timeout = 60)
+		link = response.read()
+		response.close()
+		return link
+	except urllib2.URLError, e:
+		print 'We failed to open "%s".' % url
+		if hasattr(e, 'code'):
+			print 'We failed with error code - %s.' % e.code
+		elif hasattr(e, 'reason'):
+			print 'We failed to reach a server.'
+			print 'Reason: ', e.reason
+
 def buildMenu(TheUrl,url,mode,top,pn,tag,v):
     params = get_params()
     totalusers = 0
     pn = params['pn']
-    #v = params['v']
-    #tag = params['tag']
     top = params['top']
-    response = urllib2.urlopen(TheUrl)
-    if response and response.getcode() == 200:
-        content = response.read()
-        #videos = util.extractAll(content, 'broadcastId', 'tags')
-        videos = util.extractAll(content, '{"userId":"', '}')
-        for video in videos:
-            totalusers = totalusers + 1
-            #top = int(top) + 50
-            params = {'play':1}
-            params['video'] = 'rtmp://pullstream.younow.8686c.com/live/Stream-' + util.extract(video, '"broadcastId":"', '","username":"')
-            #params['image'] = 'https://ynassets.younow.com/broadcastdynamic/live/' + util.extract(video, '":"', '","username"') + '/' + util.extract(video, '":"', '","username"') + '.jpg'
-            params['image'] = 'https://ynassets.younow.com/broadcastdynamic/live/' + util.extract(video, '"broadcastId":"', '","username":"') + '/' + util.extract(video, '"broadcastId":"', '","username":"') + '.jpg'
-            params['title'] = util.extract(video, '","username":"', '\"')
-            params['Page'] = url
-            params['Type'] = mode
-            params['top'] = top
-            params['pn'] = pn
-            params['tag'] = tag
-            params['tg'] = util.extract(video, '"tags":["', '"],"broadcastId')
-            params['v'] = util.extract(video, '","viewers":"', '","likes":"')
-            params['likes'] = util.extract(video, '"likes":"', '","tags":')
-            params['fans'] = util.extract(video, '"totalFans":', ',"position"')
-            link = util.makeLink(params)
-            util.addMenuItem2(params['title'], params['v'], params['tg'], params['likes'], params['fans'], link, params['image'], params['image'], False)
+    r = requests.get(TheUrl)
+    r.text
+    data = json.loads(r.text)
+
+    for item in data['data']['video_info']:
+        totalusers = totalusers + 1
+        params = {'play':1}
+        params['title'] = item['uname'].decode("utf-8")
+        params['video'] = item['videosource']
+        params['image'] = item['smallcover']
+        params['MSG'] = item['title'].decode("utf-8")
+        params['code'] = item['countryCode'].decode("utf-8")
+        params['addd'] = item['addr']
+        params['Page'] = url
+        params['Type'] = mode
+        params['top'] = top
+        params['pn'] = pn
+        params['tag'] = tag
+        link = util.makeLink(params)
+        #util.addMenuItem2(params['title'], params['MSG'], link, params['image'], params['image'], False)
+        util.addMenuItem2(params['title'], params['MSG'], params['code'], params['addd'], link, params['image'], params['image'], False)
         #util.endListing()
-    else:
-        util.showError(ADDON_ID, 'Could not open URL %s to create menu' % (url))
-    if totalusers >= 48 and tag == 'None':
-        top = int(top) + 50
+   # else:
+   #     util.showError('LiveMe', 'Could not open URL %s to create menu' % (url))
+    #if totalusers >= 15 and tag == 'None':
+    if totalusers != 0:
+        top = int(top) + 30
         pn = int(pn) + 1
         wp = int(pn) - 1
-        add_dir('[COLOR slategray]P' + str(wp) + '[/COLOR] [COLOR greenyellow][B]Next Page[/B][/COLOR][COLOR olive][B]>>[/B][/COLOR][COLOR olivedrab][B]' + str(pn) + '[/B][/COLOR]', NextPage, top, pn, tag, v, 2, nexticon, fanart)
-    else:
-        if totalusers >= 48 and tag != 'None':
-            top = int(top) + 50
-            pn = int(pn) + 1
-            wp = int(pn) - 1
-            tag = params['tag']
-            add_dir('[COLOR slategray]P' + str(wp) + ' [COLOR greenyellow][B]Next Page[/B][/COLOR][COLOR olive][B]>>[/B][/COLOR][COLOR olivedrab][B]' + str(pn) + '[/B][/COLOR]', Tagsz, top, pn, tag, v, 2, nexticon, fanart)
+        add_dir('[COLOR slategray]P' + str(wp) + '[/COLOR] [COLOR=mediumpurple][B]Next Page[/B][/COLOR][COLOR darkorchid][B]>>[/B][/COLOR][COLOR mediumpurple][B]' + str(pn) + '[/B][/COLOR]', NextPage, top, pn, tag, v, 2, nexticon, fanart)
+  #  else:
+  #      if totalusers >= 15 and tag != 'None':
+  #          top = int(top) + 50
+  #          pn = int(pn) + 1
+  #          wp = int(pn) - 1
+  #          tag = params['tag']
+  #          add_dir('[COLOR slategray]P' + str(wp) + ' [COLOR greenyellow][B]Next Page[/B][/COLOR][COLOR olive][B]>>[/B][/COLOR][COLOR olivedrab][B]' + str(pn) + '[/B][/COLOR]', Tagsz, top, pn, tag, v, 2, nexticon, fanart)
     if totalusers == 0:
         add_dir('[COLOR=darkkhaki]No Results:[/COLOR] ' + str(tag), Categories, 0, 1, tag, 0, 2, icon, fanart)
     setView('movies', 'thumb_view')
@@ -273,8 +275,13 @@ def test():
     pn = '1'
     v = '0'
     tag = 'None'
+    image = icon
     try:
         url = urllib.unquote_plus(params["url"])
+    except:
+        pass
+    try:
+        url = urllib.unquote_plus(params["image"])
     except:
         pass
     try:

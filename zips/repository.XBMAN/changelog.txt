@@ -1,8 +1,5 @@
-[B]Version 1.2[/B]
-- Repo host update.
-
-[B]Version 1.1[/B]
-- Repo info updated.
+[B]Version 1.6[/B]
+- Repo host updated.
 
 [B]Version 1.0[/B]
 - Initial version

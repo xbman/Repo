@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.YouNow" name="YouNow"
-	version="1.0.3" provider-name="xbman">
+	version="1.0.5" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 	</requires>
@@ -14,7 +14,12 @@
 [COLOR olive][B]and some can be just plain lazy. :D[/B][/COLOR]
 [B]Enjoy all of their moments with YouNow.[/B]
 [COLOR slategray]Chatting is available through your pc, phone, or tablet.[/COLOR]
-[COLOR slategray]Start your very own broadcast.. at younow.com[/COLOR]</description>
+[COLOR slategray]Start your very own broadcast.. at younow.com[/COLOR]
+* Support: https://github.com/xbman/Repo/issues</description>
+   <news>
+[B]YouNow 1.0.5[/B] (06-15-2017)
+Addon info updated...
+   </news>
         <disclaimer lang="en">The author does not have any affiliation with the content provider or with the broadcasters content. Enjoy! :-)</disclaimer>
 		<platform>all</platform>
 		<language>en</language>

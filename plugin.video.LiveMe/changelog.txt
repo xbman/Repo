@@ -1,0 +1,5 @@
+[B]LiveMe 1.0.2[/B] (7-15-2017)
+ - addon info updated. 
+
+[B][Release] LiveMe 1.0.1[/B] (3-11-2017)
+- Initial release.

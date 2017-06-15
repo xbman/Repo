@@ -1,3 +1,12 @@
+[B]YouNow 1.0.5[/B] (06-15-2017)
+ - addon info updated.
+
+[B]YouNow 1.0.4[/B] (02-15-2017) 
+ - Custom view modes added in Settings.
+ - Added info to all. viewers-likes-totalfans.
+ - Trending tags retrieves the popular tags.
+ - Improved next page and other codes.
+
 [B]YouNow 1.0.3[/B] (01-26-2017)
  - Settings added:
  - - Enable or disable sections.

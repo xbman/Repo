@@ -1,11 +1,9 @@
-import sys, urllib , os
+import sys, urllib , os , re
 import xbmc, xbmcgui, xbmcaddon, xbmcplugin
 
 ########################################################
-younowtags = 'https://api.younow.com/php/api/younow/queue/locale=en/numberOfRecords=50/startFrom='  # /tags=sumtag
 
-
-def playMedia(title, viewers, tg, likes, fans, thumbnail, link, mediaType='Video') :
+def playMedia(title, thumbnail, code, addd, link, mediaType='Video') :
     """Plays a video
     Arguments:
     title: the title to be displayed
@@ -14,16 +12,16 @@ def playMedia(title, viewers, tg, likes, fans, thumbnail, link, mediaType='Video
     mediaType: the type of media to play, defaults to Video. Known values are Video, Pictures, Music and Programs
     """
     li = xbmcgui.ListItem(label=title, iconImage=thumbnail, thumbnailImage=thumbnail, path=link)
-    li.setInfo(type=mediaType, infoLabels={ "Title": title + '  | Viewers:' + str(viewers), "plot": 'You are watching: ' + title + '\n' + 'Viewers:' + str(viewers) + ' * Likes:' + str(likes) + '\nTotalFans:' + str(fans) + '    #' + str(tg), 'genre': '#' + str(tg) })
-    #li.setInfo(type=mediaType, infoLabels={ "Title": title })
+    #li.setInfo(type=mediaType, infoLabels={ "Title": title + '  | Viewers:' + str(viewers), "plot": 'You are watching: ' + title + '\n' + 'Viewers:' + str(viewers) + ' * Likes:' + str(likes) + '\nTotalFans:' + str(fans) + '    #' + str(tg), 'genre': '#' + str(tg) })
+    li.setInfo(type=mediaType, infoLabels={ "Title": title  + '  | ' + str(code) + ' ' +  str(addd), 'genre': 'Country: ' + str(code) + ' ' + str(addd) })
     xbmc.Player().play(item=link, listitem=li)
 
 def parseParameters(inputString=sys.argv[2]):
     """Parses a parameter string starting at the first ? found in inputString
-    
+
     Argument:
     inputString: the string to be parsed, sys.argv[2] by default
-    
+
     Returns a dictionary with parameter names as keys and parameter values as values
     """
     parameters = {}
@@ -49,14 +47,14 @@ def notify(addonId, message, timeShown=5000):
     addon = xbmcaddon.Addon(addonId)
     xbmc.executebuiltin('Notification(%s, %s, %d, %s)' % (addon.getAddonInfo('name'), message, timeShown, addon.getAddonInfo('icon')))
 
-mysettings = xbmcaddon.Addon(id = 'plugin.video.YouNow')
+mysettings = xbmcaddon.Addon(id = 'plugin.video.LiveMe')
 home = mysettings.getAddonInfo('path')
 icon = xbmc.translatePath(os.path.join(home, 'icon.png'))
 iconimage = xbmc.translatePath(os.path.join(home, 'icon.png'))
 fanart = xbmc.translatePath(os.path.join(home, 'fanart.jpg'))
 
 def notifyClear(header=None, msg='', duration=5000):
-    if header is None: header = 'YouNow'
+    if header is None: header = 'LiveMe'
     builtin = "XBMC.Notification(%s,%s, %s, %s)" % (header, msg, duration, icon)
     xbmc.executebuiltin(builtin)
 
@@ -88,10 +86,21 @@ def showError(addonId, errorMessage):
     notify(addonId, errorMessage)
     xbmc.log(errorMessage, xbmc.LOGERROR)
 
+def regex_from_to(text, from_string, to_string, excluding=True):
+    if excluding:
+        r = re.search("(?i)" + from_string + "([\S\s]+?)" + to_string, text).group(1)
+    else:
+        r = re.search("(?i)(" + from_string + "[\S\s]+?" + to_string + ")", text).group(1)
+    return r
+
+def regex_get_all(text, start_with, end_with):
+    r = re.findall("(?i)(" + start_with + "[\S\s]+?" + end_with + ")", text)
+    return r
+
 def extractAll(text, startText, endText):
     """
     Extract all occurences of a string within text that start with startText and end with endText
-    
+
     Parameters:
     text: the text to be parsed
     startText: the starting tokem
@@ -155,7 +164,7 @@ def addMenuItem(caption, link, icon=None, thumbnail=None, folder=False):
     # False plays right. but gives unsupported protocol(plugin) Warning. WTF really.
     # Nevermind fixed that crap in menu2 below.. haha.. in ur face unsupported protocol(plugin)
 
-def addMenuItem2(caption, viewers, tg, likes, fans, link, icon=None, thumbnail=None, folder=False):
+def addMenuItem2(caption, msg, code, addd, link, icon=None, thumbnail=icon, folder=False):
     """
     Add a menu item to the xbmc GUI
     Parameters:
@@ -169,10 +178,7 @@ def addMenuItem2(caption, viewers, tg, likes, fans, link, icon=None, thumbnail=N
     video_streaminfo = {'codec': 'h264','aspect': 1.33,'width': 480,'height': 480,}
     #video_streaminfo = {'codec': 'h264'}
     listItem = xbmcgui.ListItem(unicode(caption), iconImage=icon, thumbnailImage=thumbnail)
-    listItem.setInfo(type="Video", infoLabels={ "Title": caption, "plotoutline": '[COLOR yellowgreen]' + caption + '[/COLOR][COLOR=olivedrab] is live on younow.[/COLOR]' + '[COLOR lightgreen]Viewers:[/COLOR][COLOR=lightseagreen]' + str(viewers) + '[/COLOR]',
-                    'cast': [caption , str(viewers)] ,'genre': '[COLOR=olivedrab][B]#[/B][/COLOR][COLOR yellowgreen][B]' + str(tg) + '[/B][/COLOR]', "Plot": '[COLOR yellowgreen]' + caption + '[/COLOR][COLOR=olivedrab] is live on younow. \
-[/COLOR] \n[COLOR lightgreen]Viewers:[/COLOR][COLOR=lightseagreen]' + str(viewers) + '[/COLOR]   *   [COLOR lightgreen]Likes:[/COLOR][COLOR=lightseagreen]' + str(likes) + '[/COLOR] \
- \n[COLOR lightgreen]TotalFans:[/COLOR][COLOR=lightseagreen]' + str(fans) + '[/COLOR]    [COLOR=olivedrab][B]#[/B][/COLOR][COLOR=yellowgreen][B]' + str(tg) + '[/B][/COLOR]' })
+    listItem.setInfo(type="Video", infoLabels={ "Title": caption, "plotoutline": '[COLOR mediumorchid] ' + caption + '[/COLOR][COLOR=mediumpurple] is on Live.ME.[/COLOR]', "plot": '[COLOR mediumorchid]' + caption + '[/COLOR][COLOR=mediumpurple] is on Live.ME.[/COLOR] \n [COLOR=orchid][B]' + str(msg) + ' \n [/B][COLOR=mediumpurple]Country:[/COLOR][COLOR mediumorchid] ' + str(code) + '[/COLOR][COLOR=mediumpurple] ' + str(addd) + '[/COLOR]' ,"genre": '[COLOR=mediumpurple]Country:[/COLOR] ' + '[COLOR mediumorchid]' + str(code) + ' [/COLOR][COLOR=mediumpurple]' + str(addd) + '[/COLOR]' })
     listItem.addStreamInfo('video', video_streaminfo)
     fanart = icon
     listItem.setArt({'fanart': fanart})

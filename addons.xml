@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
+<addon id="plugin.video.LiveMe" name="LiveMe"
+	version="1.0.2" provider-name="xbman">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0" />
+        <import addon="script.module.requests" version="2.12.4"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">[COLOR mediumpurple]LiveMe[/COLOR] - Watch Broadcasters Live.</summary>
+		<description lang="en">Watch Broadcasters Live from LiveMe.com
+[COLOR=mediumpurple][B]Your moment is here.[/B][/COLOR]
+[COLOR slategray]Chatting is available through your phone or tablet.[/COLOR]
+[COLOR slategray]Or start your very own broadcast via the liveme App.[/COLOR]
+* Support: https://github.com/xbman/Repo/issues</description>
+        <news>[B]1.0.2[/B] 6-15-2017 addon info updated.</news>
+        <disclaimer lang="en">The author does not have any affiliation with the content provider or with the broadcasters content. Enjoy! :-)</disclaimer>
+		<platform>all</platform>
+		<language>en</language>
+		<email></email>
+        <forum></forum>
+	</extension>
+</addon>
+
 <addon id="plugin.video.YouNow" name="YouNow"
-	version="1.0.3" provider-name="xbman">
+	version="1.0.5" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 	</requires>
@@ -15,7 +40,12 @@
 [COLOR olive][B]and some can be just plain lazy. :D[/B][/COLOR]
 [B]Enjoy all of their moments with YouNow.[/B]
 [COLOR slategray]Chatting is available through your pc, phone, or tablet.[/COLOR]
-[COLOR slategray]Start your very own broadcast.. at younow.com[/COLOR]</description>
+[COLOR slategray]Start your very own broadcast.. at younow.com[/COLOR]
+* Support: https://github.com/xbman/Repo/issues</description>
+   <news>
+[B]YouNow 1.0.5[/B] (06-15-2017)
+Addon info updated...
+   </news>
         <disclaimer lang="en">The author does not have any affiliation with the content provider or with the broadcasters content. Enjoy! :-)</disclaimer>
 		<platform>all</platform>
 		<language>en</language>
@@ -24,21 +54,17 @@
 	</extension>
 </addon>
 
-<addon id="repository.XBMAN" name="XBMAN's Addon Repository" version="1.2" provider-name="xbman">
+<addon id="repository.XBMAN" name="XBMAN's Addon Repository" version="1.6" provider-name="xbman">
 	<extension point="xbmc.addon.repository" name="XBMAN's Addons Repository">
-		<info compressed="false">https://offshoregit.com/xbman/addons.xml</info>
-		<checksum>https://offshoregit.com/xbman/addons.xml.md5</checksum>
-		<datadir zip="true">https://offshoregit.com/xbman/zips</datadir>
+		<info compressed="false">http://github.com/xbman/Repo/raw/master/addons.xml</info>
+		<checksum>http://github.com/xbman/Repo/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">http://github.com/xbman/Repo/raw/master/zips</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>XBMAN's Addon Repository</summary>
-		<description>[COLOR slategray]Download and install addons from XBMAN.[/COLOR]
+		<description>Download and install addons from XBMAN.
 
-* Current Available Addons:
-
-1: [COLOR limegreen]YouNow[/COLOR] -Watch Broadcasters Live.
-
-[COLOR olive]* For Support please visit: tvaddons.ag[/COLOR]</description>
+[COLOR olive]* Support: https://github.com/xbman/Repo/issues[/COLOR]</description>
 		<platform>all</platform>
 	</extension>
 </addon>
