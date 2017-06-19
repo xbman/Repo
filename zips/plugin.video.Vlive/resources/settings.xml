@@ -1,0 +1,83 @@
+<settings>
+<category label="Show/Hide">
+		<setting type="lsep" label="Show or Hide addon sections."/>
+		<setting id="enable_All" type="bool" label="All:" default="true" />
+		<setting id="enable_Misc" type="bool" label="Misc:" default="true" />
+		<setting id="enable_People" type="bool" label="People:" default="true" />
+		<setting id="enable_Nature" type="bool" label="Nature:" default="true" />
+		<setting id="enable_Creative" type="bool" label="Creative:" default="true" />
+		<setting id="enable_MusicCafe" type="bool" label="MusicCafe:" default="true" />
+		<setting id="enable_NewsandTech" type="bool" label="NewsAndTech:" default="true" />
+		<setting id="enable_Lifestyles" type="bool" label="Lifestyles:" default="true" />
+		<setting id="enable_Espanol" type="bool" label="Espanol:" default="true" />
+		<setting id="enable_settings" type="bool" label="Show Settings:" default="true" />
+</category>
+
+<category label="View Modes">
+       <setting id="enable_custom_view" type="bool" label="Enable Custom View Modes:" default="false" />
+       <setting id="menu_view" type="number" enable="eq(-1,true)" label="Menu View Mode" default="50" />
+       <setting id="thumb_view" type="number" enable="eq(-2,true)" label="Thumbnail View Mode" default="500" />
+       <setting type="lsep" label=""/>
+       <setting id="thumb_type" type="enum" label="30100" lvalues="30101|30102" default="1" />
+       <setting id="back_type" type="enum" label="30103" lvalues="30101|30102" default="1" />
+       <setting type="lsep" label=""/>
+       <setting label="Stream TimeOut:" type="slider" id="timeout_" default="20" range="10,5,100" option="int" />
+</category>
+
+<category label="Parameters">
+       <setting id="enable_custom_params" type="bool" label="[B]Enable Custom Parameters[/B]:" default="false" />
+       <setting id="browser_site" type="text" enable="eq(-1,true)" label="[COLOR indianred][B]Main Website[/B][/COLOR]:" default="https://vaughnlive.tv" />
+       <setting id="browser_header" type="text" enable="eq(-2,true)" label="[COLOR indianred][B]Browser Header[/B][/COLOR]:" default="Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3" />
+       <setting id="key_url" type="text" enable="eq(-3,true)" label="[COLOR indianred][B]KEY URL[/B][/COLOR]:" default="http://{site}{path}{domainTag}_{channelname}?{version}_{ms}-{ms}-{random}" />
+       <setting id="play_params" enable="eq(-4,true)" type="text" label="[COLOR indianred][B]Play Parameters[/B][/COLOR]:" default="rtmp://{ip}:{port}/live?{mvnkey} app=live?{mvnkey} swfUrl={SWFURL} pageUrl={MainSite}/{channelname} playpath={domainTag}_{channelname} timeout={timeout}" />
+       <setting id="domain_tag" enable="eq(-5,true)" type="text" label="[COLOR indianred][B]Domain Tag[/B][/COLOR]:" default="live" />
+       <setting type="lsep" label=""/>
+</category>
+
+<category label="Information">
+ <setting id="scrolldown" type="text" enable="true" label="Scroll Down for ALL parameter Information" default="yes" />
+ <setting type="lsep" label="" />
+ <setting type="lsep" label="[COLOR skyblue][B]{site}[/B][/COLOR] = [COLOR lightskyblue]Adds mvnkey domain site: ex: mvn.vaughnsoft.net[/COLOR][CR] [COLOR steelblue]This value is Auto retrieved from the swf file.[/COLOR]" />
+ <setting type="lsep" label="[COLOR skyblue][B]{path}[/B][/COLOR] = [COLOR lightskyblue]Adds mvnkey ending path: ex: /video/edge/...[/COLOR][CR] [COLOR steelblue]This value is Auto retrieved from the swf file.[/COLOR]" />
+ <setting type="lsep" label="" />
+ <setting type="lsep" label="[COLOR skyblue][B]{domainTag}[/B][/COLOR] = [COLOR lightskyblue]Adds a tag. ex: live[/COLOR][CR] [COLOR steelblue]This value is Editable on the Parameters page.[/COLOR]" />
+ <setting type="lsep" label="" />
+ <setting type="lsep" label="[COLOR skyblue][B]{channelname}[/B][/COLOR] = [COLOR lightskyblue]Adds the channels name.[/COLOR][CR] [COLOR steelblue]This value is Auto retrieved from the website.[/COLOR]" />
+ <setting type="lsep" label="" />
+ <setting type="lsep" label="[COLOR skyblue][B]{version}[/B][/COLOR] = [COLOR lightskyblue]Adds the players version number.[/COLOR][CR] [COLOR steelblue]This value is Auto retrieved from the swf file.[/COLOR]" />
+ <setting type="lsep" label="" />
+ <setting type="lsep" label="[COLOR skyblue][B]{ms}[/B][/COLOR] = [COLOR lightskyblue]Adds a random three digit number.[/COLOR][CR][COLOR skyblue][B]{random}[/B][/COLOR] = [COLOR lightskyblue]Adds a long random number.[/COLOR]" />
+ <setting type="lsep" label="" />
+ <setting type="lsep" label="[COLOR skyblue][B]{ip}[/B][/COLOR] = [COLOR lightskyblue]Adds the servers ip address.[/COLOR][CR] [COLOR steelblue]This value is Auto retrieved from the KEY URL.[/COLOR]" />
+ <setting type="lsep" label="[COLOR skyblue][B]{port}[/B][/COLOR] = [COLOR lightskyblue]Adds the servers port number.[/COLOR][CR] [COLOR steelblue]This value is Auto retrieved from the KEY URL.[/COLOR]" />
+ <setting type="lsep" label="" />
+ <setting type="lsep" label="[COLOR skyblue][B]{mvnkey}[/B][/COLOR] = [COLOR lightskyblue]Adds the mvnkey.[/COLOR][CR] [COLOR steelblue]This value is Auto retrieved from the KEY URL.[/COLOR]" />
+ <setting type="lsep" label="" />
+ <setting type="lsep" label="[COLOR skyblue][B]{swfurl}[/B][/COLOR] = [COLOR lightskyblue]Adds the url to the swf file.[/COLOR][CR] [COLOR steelblue]This value is Auto retrieved from the website.[/COLOR]" />
+ <setting type="lsep" label="" />
+ <setting type="lsep" label="[COLOR skyblue][B]{pageurl}[/B][/COLOR] = [COLOR lightskyblue]Adds the url to the channels page.[/COLOR][CR] [COLOR steelblue]This value is created from website setting and channelname.[/COLOR]" />
+ <setting type="lsep" label="" />
+</category>
+
+<category label="Support">
+<setting type="lsep" label="[COLOR skyblue][B]Vlive Support:[/B][/COLOR]" />
+<setting type="lsep" label="[COLOR lightskyblue]Support:[/COLOR] [COLOR slategray]https://github.com/xbman/Repo/issues[/COLOR]" />
+<setting type="lsep" label="" />
+<setting type="lsep" label="[COLOR steelblue][B]Create your own broadcast at vaughnlive.tv![/B][/COLOR]" />
+<setting type="lsep" label="[COLOR slategray][B]Support the broadcasters and their website:[/B][/COLOR]" />
+<setting type="lsep" label="[COLOR slategray]Simply by occasionally visiting:[/COLOR] [COLOR steelblue][B]vaughnlive.tv[/B][/COLOR]" />
+<setting type="lsep" label=" ***************Vlive***************" />
+<setting type="lsep" label="      *************************" />
+<setting type="lsep" label="           ***************" />
+</category>
+
+<category label="Disclaimer">
+<setting type="lsep" label="[COLOR slategray]* The author does not have any affiliation with the content provider(s).[/COLOR]" />
+<setting type="lsep" label="[COLOR slategray]* This addon is maintained for personal python development learning.[/COLOR]" />
+<setting type="lsep" label="[COLOR slategray]* [B]This addon retrieves links from a webpage[/B] that we have no control over.[/COLOR]" />
+<setting type="lsep" label="[COLOR slategray]* [B]This addon does not contain live tv stations[/B], ex: (hbo,amc,tbs, etc..) [CR] ..despite the name live being in Vlive.[/COLOR]" />
+<setting type="lsep" label="" />
+<setting type="lsep" label="[COLOR slategray]* Please contact any broadcasters via the vaughnlive.tv website.[/COLOR]" />
+<setting type="lsep" label="[COLOR slategray][B]* Create your own broadcast at vaughnlive.tv![/B][/COLOR]" />
+</category>
+</settings>
