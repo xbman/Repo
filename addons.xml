@@ -26,7 +26,7 @@
 </addon>
 
 <addon id="plugin.video.Vlive" name="Vlive"
-	version="3.0.7" provider-name="xbman">
+	version="3.0.8" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 	</requires>
@@ -54,8 +54,8 @@
 		<language>en</language>
 		<email></email>
         <forum></forum>
-        <news>Vlive 3.0.7 (7-3-2017)
-- Playabck fixed</news>
+        <news>Vlive 3.0.8 (7-07-2017)
+- Playback fixed</news>
 	</extension>
 </addon>
 
