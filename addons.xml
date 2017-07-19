@@ -54,9 +54,10 @@
 </addon>
 
 <addon id="plugin.video.Vlive" name="Vlive"
-	version="3.0.8" provider-name="xbman">
+	version="3.0.9" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
+        <import addon="script.module.requests" version="2.12.4"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="default.py">
 		<provides>video</provides>
@@ -82,8 +83,8 @@
 		<language>en</language>
 		<email></email>
         <forum></forum>
-        <news>Vlive 3.0.8 (7-07-2017)
-- Playback fixed</news>
+        <news>Vlive 3.0.9 (7-19-2017)
+- Playback fixed. :D</news>
 	</extension>
 </addon>
 
