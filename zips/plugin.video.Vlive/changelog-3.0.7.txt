@@ -1,2 +1,0 @@
-Vlive 3.0.7 (7-20-2017)
-- playback fixed.
