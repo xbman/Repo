@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.Vlive" name="Vlive"
-	version="3.1.1" provider-name="xbman">
+	version="3.1.2" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.requests" version="2.12.4"/>
@@ -29,7 +29,7 @@
 		<language>en</language>
 		<email></email>
         <forum></forum>
-        <news>Vlive 3.1.1 (8-06-2017)
-- bug fixed causing no playback.</news>
+        <news>Vlive 3.1.2 (8-21-2017)
+- menus updated.</news>
 	</extension>
 </addon>
