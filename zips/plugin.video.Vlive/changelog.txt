@@ -1,3 +1,7 @@
+3.1.5 (9-25-2017)
+-Rtmp playback updated.
+-Html5 playback is broken.
+
 3.1.4 (9-14-2017)
 - bug fixed.
 
