@@ -54,7 +54,7 @@
 </addon>
 
 <addon id="plugin.video.Vlive" name="Vlive"
-	version="3.1.4" provider-name="xbman">
+	version="3.1.5" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.requests" version="2.12.4"/>
