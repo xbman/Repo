@@ -54,7 +54,7 @@
 </addon>
 
 <addon id="plugin.video.Vlive" name="Vlive"
-	version="3.1.5" provider-name="xbman">
+	version="3.1.6" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.requests" version="2.12.4"/>
@@ -83,13 +83,11 @@
 		<language>en</language>
 		<email></email>
         <forum></forum>
-        <news>Vlive 3.1.5 (9-25-2017)
--Rtmp playback updated.
--Html5 playback is broken.
-Vlive 3.1.3 (9-14-2017)
-- rtmp playback added.
-- favorites added.
-- setting page updated.</news>
+        <news>Vlive 3.1.6 (1-27-2018)
++ Rtmp srv map updates.
++ Html5 playback returns.
++ Set playback in vlive settings.
++ more updates may follow.</news>
 	</extension>
 </addon>
 
