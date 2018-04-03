@@ -1,0 +1,17 @@
+<settings>
+<category label="General">
+		<setting type="lsep" label="Enable or Disable Sections."/>
+		<setting id="enable_clear_images" type="bool" label="Clear Cheez Images:" default="true" />
+		<setting id="enable_settings" type="bool" label="Show Settings:" default="true" />
+		<setting type="lsep" label="Auto-Clear"/>
+        <setting id="auto_clear" type="bool" label="Auto-Clear Cheez Images:" default="false" />
+</category>
+
+<category label="View Modes">
+       <setting id="enable_custom_view" type="bool" label="Enable Custom View Modes:" default="false" />
+       <setting id="menu_view" type="number" enable="eq(-1,true)" label="Menu View Mode" default="50" />
+       <setting id="thumb_view" type="number" enable="eq(-2,true)" label="Thumbnail View Mode" default="500" />
+       <setting type="sep" />
+       <setting label="Cheez per page:" type="slider" id="plimit" default="10" range="10,10,100" option="int" />
+</category>
+</settings>
