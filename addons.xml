@@ -28,6 +28,34 @@
   </extension>
 </addon>
 
+<addon id="plugin.video.Cheez" name="Cheez" version="1.0.0" provider-name="xbman">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0" />
+        <import addon="script.module.requests" version="2.12.4"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">[COLOR goldenrod]Cheez[/COLOR] [COLOR gold]: Vlogs and Danceoffs.[/COLOR]</summary>
+		<description lang="en">
+[COLOR yellow][B]Videos that make you smile.[/B][/COLOR]
+[COLOR khaki]Create/Comment/Share via: Cheez app.[/COLOR]
+[COLOR slategray]* Support: https://github.com/xbman/Repo/issues[/COLOR]</description>
+        <news>[B]1.0.0[/B] 2018 initial release.</news>
+        <disclaimer lang="en">The author does not have any affiliation with the content provider or with the broadcasters content. Enjoy! :-)</disclaimer>
+		<platform>all</platform>
+		<language>en</language>
+		<email></email>
+        <forum></forum>
+        <assets>
+        <screenshot>resources/screenshot-01.jpg</screenshot>
+        <icon>icon.png</icon>
+        <fanart>fanart.jpg</fanart>
+        </assets>
+	</extension>
+</addon>
+
 <addon id="plugin.video.LiveMe" name="LiveMe"
 	version="1.0.2" provider-name="xbman">
 	<requires>
