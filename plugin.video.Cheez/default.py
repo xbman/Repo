@@ -247,6 +247,7 @@ def buildMenu(TheUrl,url,mode,top,pn,tag,v):
         params['top'] = top
         params['pn'] = pn
         params['tag'] = tag
+        if params['title'] == None: params['title'] = 'Unknown Title'
         link = util.makeLink(params)
         #util.addMenuItem2(params['title'], params['MSG'], link, params['image'], params['image'], False)
         util.addMenuItem2(params['title'], params['MSG'], params['code'], params['addd'], params['rtime'], link, params['image'], params['image'], False)
