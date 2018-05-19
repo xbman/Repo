@@ -28,7 +28,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.Cheez" name="Cheez" version="1.0.0" provider-name="xbman">
+<addon id="plugin.video.Cheez" name="Cheez" version="1.0.1" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.requests" version="2.12.4"/>
@@ -42,7 +42,7 @@
 [COLOR yellow][B]Videos that make you smile.[/B][/COLOR]
 [COLOR khaki]Create/Comment/Share via: Cheez app.[/COLOR]
 [COLOR slategray]* Support: https://github.com/xbman/Repo/issues[/COLOR]</description>
-        <news>[B]1.0.0[/B] 2018 initial release.</news>
+        <news>[B]1.0.1[/B] 2018 random error fixed.</news>
         <disclaimer lang="en">The author does not have any affiliation with the content provider or with the broadcasters content. Enjoy! :-)</disclaimer>
 		<platform>all</platform>
 		<language>en</language>
@@ -57,7 +57,7 @@
 </addon>
 
 <addon id="plugin.video.LiveMe" name="LiveMe"
-	version="1.0.2" provider-name="xbman">
+	version="1.0.3" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.requests" version="2.12.4"/>
@@ -72,7 +72,7 @@
 [COLOR slategray]Chatting is available through your phone or tablet.[/COLOR]
 [COLOR slategray]Or start your very own broadcast via the liveme App.[/COLOR]
 * Support: https://github.com/xbman/Repo/issues</description>
-        <news>[B]1.0.2[/B] 6-15-2017 addon info updated.</news>
+        <news>[B]LiveMe 1.0.3[/B] (5-18-2018) - error fixed. enjoy!</news>
         <disclaimer lang="en">The author does not have any affiliation with the content provider or with the broadcasters content. Enjoy! :-)</disclaimer>
 		<platform>all</platform>
 		<language>en</language>
