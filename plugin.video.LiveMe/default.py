@@ -33,7 +33,6 @@ Categories = 'Categories'
 Settings = 'Settings'
 #xbmcplugin.setContent(int(sys.argv[1]), 'movies')
 
-
 def searchUser(url,mode,top,pn,tag,v):
     try:
         keyb = xbmc.Keyboard('', '[COLOR yellow]Enter search text[/COLOR]')
@@ -216,12 +215,16 @@ def make_request(url):
 			print 'We failed to reach a server.'
 			print 'Reason: ', e.reason
 
+
+# New browser header added. The fix for... 5-18-2018 I got your browser header right here. lol!
+Headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+
 def buildMenu(TheUrl,url,mode,top,pn,tag,v):
     params = get_params()
     totalusers = 0
     pn = params['pn']
     top = params['top']
-    r = requests.get(TheUrl)
+    r = requests.get(TheUrl,headers=Headers)
     r.text
     data = json.loads(r.text)
 
@@ -240,24 +243,12 @@ def buildMenu(TheUrl,url,mode,top,pn,tag,v):
         params['pn'] = pn
         params['tag'] = tag
         link = util.makeLink(params)
-        #util.addMenuItem2(params['title'], params['MSG'], link, params['image'], params['image'], False)
         util.addMenuItem2(params['title'], params['MSG'], params['code'], params['addd'], link, params['image'], params['image'], False)
-        #util.endListing()
-   # else:
-   #     util.showError('LiveMe', 'Could not open URL %s to create menu' % (url))
-    #if totalusers >= 15 and tag == 'None':
     if totalusers != 0:
         top = int(top) + 30
         pn = int(pn) + 1
         wp = int(pn) - 1
         add_dir('[COLOR slategray]P' + str(wp) + '[/COLOR] [COLOR=mediumpurple][B]Next Page[/B][/COLOR][COLOR darkorchid][B]>>[/B][/COLOR][COLOR mediumpurple][B]' + str(pn) + '[/B][/COLOR]', NextPage, top, pn, tag, v, 2, nexticon, fanart)
-  #  else:
-  #      if totalusers >= 15 and tag != 'None':
-  #          top = int(top) + 50
-  #          pn = int(pn) + 1
-  #          wp = int(pn) - 1
-  #          tag = params['tag']
-  #          add_dir('[COLOR slategray]P' + str(wp) + ' [COLOR greenyellow][B]Next Page[/B][/COLOR][COLOR olive][B]>>[/B][/COLOR][COLOR olivedrab][B]' + str(pn) + '[/B][/COLOR]', Tagsz, top, pn, tag, v, 2, nexticon, fanart)
     if totalusers == 0:
         add_dir('[COLOR=darkkhaki]No Results:[/COLOR] ' + str(tag), Categories, 0, 1, tag, 0, 2, icon, fanart)
     setView('movies', 'thumb_view')

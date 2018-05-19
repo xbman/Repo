@@ -1,3 +1,6 @@
+[B]LiveMe 1.0.3[/B] (5-18-2018)
+ - error fixed. enjoy!
+
 [B]LiveMe 1.0.2[/B] (7-15-2017)
  - addon info updated. 
 
