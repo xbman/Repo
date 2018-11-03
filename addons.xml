@@ -28,7 +28,41 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.Cheez" name="Cheez" version="1.0.1" provider-name="xbman">
+<addon id="plugin.video.ChaturCam" name="ChaturCam"
+	version="1.0.0" provider-name="xbman">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">ChaturCam - Watch Adult Cam Streams.</summary>
+		<description lang="en">Watch Adult Cam streams from various places.
+
+*******************[B]ChaturCam[/B]*******************
+* Watch Adult Cam streams from various places. *
+* * *  This addon is for Adults Only! * * *
+* Support broadcasters by visiting the website *
+*******************[B]ChaturCam[/B]*******************</description>
+
+        <disclaimer lang="en">* This addon is for adults only!
+* The author does not have any affiliation with the content provider or with the broadcasters content. Enjoy! :-)
+* This addon is maintained for personal python development learning experience.
+* This addon retrieves links from a webpage that we have no control over.
+</disclaimer>
+		<platform>all</platform>
+		<language>en</language>
+		<email></email>
+        <forum>http://xbman.usa.cc</forum>
+        <news>ChaturCam: 1.0.0 (11-2018)
++ Initial Release....
++ Chaturbate.
+</news>
+</extension>
+</addon>
+
+<addon id="plugin.video.Cheez" name="Cheez" version="1.0.2" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.requests" version="2.12.4"/>
@@ -42,7 +76,11 @@
 [COLOR yellow][B]Videos that make you smile.[/B][/COLOR]
 [COLOR khaki]Create/Comment/Share via: Cheez app.[/COLOR]
 [COLOR slategray]* Support: https://github.com/xbman/Repo/issues[/COLOR]</description>
-        <news>[B]1.0.1[/B] 2018 random error fixed.</news>
+        <news>[B]1.0.2[/B] 11-2-2018.
++ More vid info added.
++ Download option Added.
++ Settings Updated.
+        </news>
         <disclaimer lang="en">The author does not have any affiliation with the content provider or with the broadcasters content. Enjoy! :-)</disclaimer>
 		<platform>all</platform>
 		<language>en</language>
