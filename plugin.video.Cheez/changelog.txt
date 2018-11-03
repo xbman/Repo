@@ -1,4 +1,4 @@
-[B]Cheez 1.0.1[/B] (11-2-2018)
+[B]Cheez 1.0.2[/B] (11-2-2018)
 + More vid info added.
 + Download option added.
 + Settings Updated.
