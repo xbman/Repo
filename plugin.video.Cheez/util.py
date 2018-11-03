@@ -166,7 +166,7 @@ def addMenuItem(caption, link, icon=None, thumbnail=None, folder=False):
     # False plays right. but gives unsupported protocol(plugin) Warning. WTF really.
     # Nevermind fixed that crap in menu2 below.. haha.. in ur face unsupported protocol(plugin)
 
-def addMenuItem2(caption, msg, code, addd, rtime, link, icon=None, thumbnail=icon, folder=False):
+def addMenuItem2(caption, likes, code, addd, rtime, link, icon=None, thumbnail=icon, folder=False):
     """
     Add a menu item to the xbmc GUI
     Parameters:
@@ -181,7 +181,20 @@ def addMenuItem2(caption, msg, code, addd, rtime, link, icon=None, thumbnail=ico
     #video_streaminfo = {'codec': 'h264'}
     listItem = xbmcgui.ListItem(unicode(caption), iconImage=icon, thumbnailImage=thumbnail)
     #listItem.setInfo(type="Video", infoLabels={ "Title": '[COLOR yellow][B]' + caption + '[/B][/COLOR]', "Plot": '[COLOR yellow] ' + caption + '[/COLOR][COLOR goldenrod] is on Cheez![/COLOR]', "plot": '[COLOR yellow]' + caption + '[/COLOR][COLOR goldenrod] is on Cheez![/COLOR] \n [COLOR slategray]' + str(msg) + ' \n [COLOR mediumpurple]Country:[/COLOR][COLOR mediumorchid] ' + str(code) + '[/COLOR][COLOR mediumpurple] UserID: ' + str(addd) + '[/COLOR]' ,"genre": '[COLOR mediumpurple]Country:[/COLOR] ' + '[COLOR mediumorchid]' + str(code) + ' [/COLOR]\n [COLOR mediumpurple] UserID: ' + str(addd) + '[/COLOR]' })
-    listItem.setInfo(type="Video", infoLabels={ "Title": caption, "Duration": rtime, "Plot": '[COLOR yellow] [B]' + caption + '[/B][/COLOR][COLOR gold] is on Cheez![/COLOR]' })
+    listItem.setInfo(type="Video", infoLabels={ "Title": caption, "Duration": rtime, "Plot": '[COLOR yellow] [B]' + caption + '[/B][/COLOR][COLOR gold] is on Cheez![/COLOR] \n * UserID: ' + str(addd) + '\n * Likes:' + str(likes) })
+    listItem.addStreamInfo('video', video_streaminfo)
+    fanart = icon
+    listItem.setArt({'fanart': fanart})
+    return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=link, listitem=listItem, isFolder=False)
+
+def addMenuItemDownload(caption, vid, likes, code, addd, rtime, link, icon=None, thumbnail=icon, folder=False):
+    video_streaminfo = {'codec': 'h264','aspect': 1.33,'width': 480,'height': 480,}
+    listItem = xbmcgui.ListItem(unicode(caption), iconImage=icon, thumbnailImage=icon)
+    uadd = sys.argv[0] + "?url=" + urllib.quote_plus(link) + "&vid_url=" + str(vid) + "&name=" + str(caption) + "&mode=5"
+    contextMenuItems = []
+    contextMenuItems.append(( '[COLOR green][B]Download This Video[/B][/COLOR]', 'xbmc.RunPlugin('+uadd+')'))
+    listItem.addContextMenuItems(contextMenuItems, replaceItems=False)
+    listItem.setInfo(type="Video", infoLabels={ "Title": caption, "Duration": rtime, "Plot": '[COLOR yellow] [B]' + caption + '[/B][/COLOR][COLOR gold] is on Cheez![/COLOR] \n * UserID: ' + str(addd) + '\n * Likes:' + str(likes) })
     listItem.addStreamInfo('video', video_streaminfo)
     fanart = icon
     listItem.setArt({'fanart': fanart})

@@ -1,7 +1,8 @@
 import util, urllib2 , os , xbmcaddon , urllib , xbmcgui , xbmcplugin , sqlite3
 import requests , json
-import sys
+import sys, os.path
 reload(sys)
+import tempfile
 sys.setdefaultencoding('utf-8')
 
 mysettings = xbmcaddon.Addon(id = 'plugin.video.Cheez')
@@ -25,7 +26,13 @@ enable_custom_view = mysettings.getSetting('enable_custom_view')
 menu_view = mysettings.getSetting('menu_view')
 thumb_view = mysettings.getSetting('thumb_view')
 plimit = mysettings.getSetting('plimit')
+enable_download = mysettings.getSetting('enable_download')
+#path_download = mysettings.getSetting('download_path')
 #xbmc.executebuiltin("Container.SetViewMode(50)")
+videoExtension = '.MP4'
+#pDialog = None
+pDialog = xbmcgui.DialogProgress()
+
 
 ClearImages = 'ClearImages'
 NextPage = 'NextPage'
@@ -238,7 +245,7 @@ def buildMenu(TheUrl,url,mode,top,pn,tag,v):
         params['video'] = util.extract(stringy,"replay_url': u'", "',")
         params['image'] = util.extract(stringy,"image_url': u'", "',")
         #params['image'] = util.extract(stringy,"gif': u'", "',")
-        params['MSG'] = params['video']
+        params['likes'] = util.extract(stringy,"like_num': u'", "',")
         params['code'] = util.extract(stringy,"area': u'", "',")
         params['addd'] = util.extract(stringy,"uid': u'", "',")
         params['rtime'] = util.extract(stringy,"duration': u'", "',")
@@ -248,9 +255,21 @@ def buildMenu(TheUrl,url,mode,top,pn,tag,v):
         params['pn'] = pn
         params['tag'] = tag
         if params['title'] == None: params['title'] = 'Unknown Title'
+        vid = params['video']
+       # if params['image'] == '': params['image'] = icon
+       # if params['video'] == '': params['video'] = params['image']
+       # if params['likes'] == '': params['likes'] = '0'
+        if params['code'] == '': params['code'] = 'Unknown Location'
+        if params['addd'] == None: params['addd'] = 'Unknown UserId'
+       # if params['rtime'] == '': params['rtime'] = '15.000'
+
+
         link = util.makeLink(params)
         #util.addMenuItem2(params['title'], params['MSG'], link, params['image'], params['image'], False)
-        util.addMenuItem2(params['title'], params['MSG'], params['code'], params['addd'], params['rtime'], link, params['image'], params['image'], False)
+        if enable_download == 'true':
+            util.addMenuItemDownload(params['title'],str(vid), params['likes'], params['code'], params['addd'], params['rtime'], link, params['image'], params['image'], False)
+        else:
+            util.addMenuItem2(params['title'], params['likes'], params['code'], params['addd'], params['rtime'], link, params['image'], params['image'], False)
         #util.endListing()
  #   else:
  #       util.showError('ADDON_ID', 'Could not open URL %s to create menu' % (url))
@@ -274,9 +293,70 @@ def buildMenu(TheUrl,url,mode,top,pn,tag,v):
 def settings():
     xbmcaddon.Addon().openSettings()
 
+def clean_filename(name):
+    if not name:
+        return 'Download'
+        pDialog.close()
+    #badchars = '\\/:*?\"<>|'
+    badchars = 'http://g.ksmobile.net/.mp4'
+    return name.strip(badchars)
+    pDialog.close()
+
+
+
+def downloadMovie(vid_url, name):
+        url = vid_url
+        #if enable_debug:
+        #    xbmc.log('Trying to download video ' + str(vid_url),xbmc.LOGNOTICE)
+        download_path = mysettings.getSetting('download_path')
+        if download_path == '':
+            try:
+                download_path = xbmcgui.Dialog().browse(0,
+                                                        'Select download path:',
+                                                        'files',
+                                                        '',
+                                                        False,
+                                                        False)
+                addon.setSetting(id='download_path', value=download_path)
+                if not os.path.exists(download_path):
+                    os.mkdir(download_path)
+            except:
+                pass
+        tmp_file = tempfile.mktemp(dir=download_path,
+                                   suffix=videoExtension)
+        tmp_file = xbmc.makeLegalFilename(tmp_file)
+        pDialog.create('Cheez','Downloading video...')
+        urllib.urlretrieve(urllib.unquote(url),
+                           tmp_file,
+                           video_report_hook)
+        vidfile = xbmc.makeLegalFilename(
+        download_path + clean_filename(vid_url) + videoExtension)
+        try:
+            os.rename(tmp_file, vidfile)
+            return vidfile
+            #pDialog.close()
+
+        except:
+            return tmp_file
+            #pDialog.close()
+
+def video_report_hook(count, blocksize, totalsize):
+        percent = int(float(count * blocksize * 100) / totalsize)
+        ###
+        #pDialog = xbmcgui.DialogProgress()
+        #pDialog.create('Cheez','Downloading video...')
+        ###
+        pDialog.update(percent, 'Downloading video...', 'Please wait.')
+        #pDialog.close()
+
+        if pDialog.iscanceled():
+            raise KeyboardInterrupt
+
+
 def test():
     params = get_params()
     url = None
+    vid_url = None
     name = None
     mode = None
     iconimage = None
@@ -286,11 +366,15 @@ def test():
     tag = 'None'
     image = icon
     try:
+        vid_url = str(params["vid_url"])
+    except:
+        pass
+    try:
         url = urllib.unquote_plus(params["url"])
     except:
         pass
     try:
-        url = urllib.unquote_plus(params["image"])
+        image = urllib.unquote_plus(params["image"])
     except:
         pass
     try:
@@ -331,6 +415,19 @@ def test():
         settings()
     elif mode == 4:
         searchTags(url,mode,top,pn,tag,v)
+    elif mode == 5:
+        #pDialog = xbmcgui.DialogProgress()
+        #pDialog.create('Cheez','Downloading video...')
+        #vid_file = downloadMovie(vid_url, name)
+        #pDialog.close()
+        downloadMovie(vid_url, name)
+        if vid_url is None:
+            xbmcgui.Dialog().ok('Cheez:','Video download failed.')
+
+    elif mode == 77:
+        line1 = url
+        line2 = vid_url
+        xbmcgui.Dialog().ok('Download', line1, line2)
 
 
 
