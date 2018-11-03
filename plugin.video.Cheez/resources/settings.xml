@@ -14,4 +14,11 @@
        <setting type="sep" />
        <setting label="Cheez per page:" type="slider" id="plimit" default="10" range="10,10,100" option="int" />
 </category>
+
+<category label="Downloads">
+       <setting id="enable_download" type="bool" label="Enable Download" default="false"/>
+       <setting id="download_path" type="folder" enable="eq(-1,true)" source="video" label="Download path"  option="writeable" default=""/>
+</category>
+
+
 </settings>
