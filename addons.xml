@@ -29,7 +29,7 @@
 </addon>
 
 <addon id="plugin.video.ChaturCam" name="ChaturCam"
-	version="1.0.0" provider-name="xbman">
+	version="1.0.1" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 	</requires>
@@ -55,10 +55,10 @@
 		<language>en</language>
 		<email></email>
         <forum>http://xbman.usa.cc</forum>
-        <news>ChaturCam: 1.0.0 (11-2018)
-+ Initial Release....
-+ Chaturbate.
-</news>
+        <news>ChaturCam: 1.0.1 (11-5-2018)
+1.0.1 (11-5-2018)
+.. error fix.
+.. No fix for win10 for it sux!</news>
 </extension>
 </addon>
 
