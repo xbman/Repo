@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.Vlive" name="Vlive"
-	version="3.1.9" provider-name="xbman">
+	version="3.2.0" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
-        <import addon="script.module.requests" version="2.12.4"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="default.py">
 		<provides>video</provides>
@@ -29,9 +28,11 @@
 		<language>en</language>
 		<email></email>
         <forum></forum>
-        <news>Vlive: 3.1.9 (6-18-2018)
+        <news>Vlive: 3.2.0 (11-07-2018)
 + Playback updated...
 + Settings page updated...
-- Rtmp is now dead.</news>
++ Obsolete stuff removed.
+- Say thanks at my forum. eh?
+</news>
 </extension>
 </addon>
