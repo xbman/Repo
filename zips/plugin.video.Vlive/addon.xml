@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.Vlive" name="Vlive"
-	version="3.2.3" provider-name="xbman">
+	version="3.2.4" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 	</requires>
@@ -29,8 +29,11 @@
 		<email></email>
         <forum></forum>
         <news>
+Vlive: 3.2.4 (11-28-2018)
++ Fixed snowman.
+
 Vlive: 3.2.3 (11-27-2018)
-Fixed easter bunny.
++ Fixed easter bunny.
 
 Vlive: 3.2.2 (11-27-2018)
 + Updated santa claus
