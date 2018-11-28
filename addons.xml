@@ -120,7 +120,7 @@
 </addon>
 
 <addon id="plugin.video.Vlive" name="Vlive"
-	version="3.2.1" provider-name="xbman">
+	version="3.2.2" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 	</requires>
@@ -128,14 +128,14 @@
 		<provides>video</provides>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Vlive - Watch streams from vaughnlive.</summary>
-		<description lang="en">Watch various streams from vaughnlive.
+		<summary lang="en">Vlive - Watch streams from vaughn.live</summary>
+		<description lang="en">Watch various streams from vaughn.live
 
 *******************[B]Vlive[/B]*******************
-* Watch broadcasters streams from vaughnlive.tv *
+* Watch broadcasters streams from vaughn.live *
 * This addon does not contain live tv stations. *
-* * Create your own broadcast at vaughnlive.tv! *
-* Support broadcasters by visiting vaughnlive.tv
+* * Create your own broadcast at vaughn.live! *
+* Support broadcasters by visiting vaughn.live
 *******************[B]Vlive[/B]*******************</description>
 
         <disclaimer lang="en">The author does not have any affiliation with the content provider or with the broadcasters content. Enjoy! :-)
@@ -143,14 +143,13 @@
 * This addon retrieves links from a webpage that we have no control over.
 * The addon does not contain live tv stations, despite the name live being in Vlive.
 * You may contact any broadcasters via the vaughnlive.tv website.
-* Create your own broadcast at vaughnlive.tv!</disclaimer>
+* Create your own broadcast at vaughn.live!</disclaimer>
 		<platform>all</platform>
 		<language>en</language>
 		<email></email>
         <forum></forum>
-        <news>Vlive: 3.2.1 (11-14-2018)
-+ Manual favorites fixed. my bad.
-- Say thanks at my forum. eh?
+        <news>Vlive: 3.2.2 (11-27-2018)
++ Updated santa claus
 </news>
 </extension>
 </addon>
