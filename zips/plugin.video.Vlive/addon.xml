@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.Vlive" name="Vlive"
-	version="3.2.4" provider-name="xbman">
+	version="3.2.5" provider-name="xbman">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 	</requires>
@@ -8,27 +8,30 @@
 		<provides>video</provides>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Vlive - Watch streams from vaughn.live</summary>
+		<summary lang="en">Vlive - Watch streams from vaughn.live!</summary>
 		<description lang="en">Watch various streams from vaughn.live
 
 *******************[B]Vlive[/B]*******************
 * Watch broadcasters streams from vaughn.live *
 * This addon does not contain live tv stations. *
 * * Create your own broadcast at vaughn.live! *
-* Support broadcasters by visiting vaughn.live
+* Support broadcasters by visiting vaughn.live!
 *******************[B]Vlive[/B]*******************</description>
 
         <disclaimer lang="en">The author does not have any affiliation with the content provider or with the broadcasters content. Enjoy! :-)
 * This addon is maintained for personal python development learning experience.
 * This addon retrieves links from a webpage that we have no control over.
 * The addon does not contain live tv stations, despite the name live being in Vlive.
-* You may contact any broadcasters via the vaughnlive.tv website.
+* You may contact any broadcasters via the vaughn.live website.
 * Create your own broadcast at vaughn.live!</disclaimer>
 		<platform>all</platform>
 		<language>en</language>
 		<email></email>
         <forum></forum>
         <news>
+Vlive: 3.2.5 (3-28-2019)
++ Updated the Flux Capacitor:V1:
+
 Vlive: 3.2.4 (11-28-2018)
 + Fixed snowman.
 
